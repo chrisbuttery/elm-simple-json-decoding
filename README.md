@@ -6,7 +6,9 @@ A playground of basic examples decoding a JSON object.
 * [Nested Object](http://chrisbuttery.github.io/elm-simple-json-decoding/nested_object.html)
 * [Nested List](http://chrisbuttery.github.io/elm-simple-json-decoding/nested_list.html)
 
-Demo URL: [https://api.myjson.com/bins/1mny6](https://api.myjson.com/bins/1mny6)
+### Example data structure
+
+[https://api.myjson.com/bins/1mny6](https://api.myjson.com/bins/1mny6)
 
 ```js
 {
