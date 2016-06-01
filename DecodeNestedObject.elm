@@ -127,11 +127,6 @@ makeRequest url =
   Task.perform FetchFail FetchSucceed (Http.get decodeNestedObject url)
 
 
-decodeTitle : Json.Decoder String
-decodeTitle =
-  Json.at ["title"] Json.string
-
-
 decodeNestedObject : Json.Decoder String
 decodeNestedObject =
     Json.at ["obj", "title"] Json.string
