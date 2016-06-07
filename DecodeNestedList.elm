@@ -76,7 +76,7 @@ init =
 
 type Msg
   = FetchData
-  | FetchSucceed (List { id : Int, name : String })
+  | FetchSucceed (List Item)
   | StoreURL String
   | FetchFail Http.Error
 
@@ -87,8 +87,8 @@ update action model =
     FetchData ->
       (model, makeRequest model.url)
 
-    FetchSucceed str ->
-      ({ model | result = str, error = False }, Cmd.none)
+    FetchSucceed results ->
+      ({ model | result = results, error = False }, Cmd.none)
 
     StoreURL url ->
       ({ model | url = url }, Cmd.none)
