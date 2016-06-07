@@ -138,55 +138,8 @@ view model =
       else ""
   in
     div []
-      [ p [] [ text "This example uses an oddly shapped object."]
+      [ h1 [] [ text "Oddly shapped object"]
       , p [] [ text "Here I want to grab every member's 'id', 'name' and path to their 'avatar' (nested in 'profile')"]
-      , pre [] [
-        text
-        "
-        {
-        \"title\": \"This is an amazing title\",
-          \"data\": [
-            {
-              \"id\": 1,
-              \"name\": \"foo\"
-            },
-            {
-              \"id\": 2,
-              \"name\": \"bar\"
-            },
-            {
-              \"id\": 3,
-              \"name\": \"baz\"
-            }
-          ],
-          \"obj\": {
-            \"title\": \"I'm a nested object\"
-          },
-          \"members\": [
-            {
-              \"id\": 4,
-              \"name\": \"garply\",
-              \"profile\": {
-                \"avatar\": \"some_path_to_garply\"
-              }
-            },
-            {
-              \"id\": 5,
-              \"name\": \"waldo\",
-              \"profile\": {
-                \"avatar\": \"some_path_to_waldo\"
-              }
-            },
-            {
-              \"id\": 6,
-              \"name\": \"fred\",
-              \"profile\": {
-                \"avatar\": \"some_path_to_fred\"
-              }
-            }
-          ]
-        }"
-      ]
       , p [] [ text "Demo URL: https://api.myjson.com/bins/yws2"]
       , input [
           placeholder "Enter a URL",

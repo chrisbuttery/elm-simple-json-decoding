@@ -9,7 +9,7 @@ A playground of basic examples decoding a JSON object.
 
 ### Example data structure
 
-[https://api.myjson.com/bins/1mny6](https://api.myjson.com/bins/1mny6)
+[https://api.myjson.com/bins/yws2](https://api.myjson.com/bins/yws2)
 
 ```js
 {
@@ -30,6 +30,29 @@ A playground of basic examples decoding a JSON object.
   ],
   "obj": {
     "title": "I'm a nested object"
-  }
+  },
+  "members": [
+    {
+      "id": 4,
+      "name": "garply",
+      "profile": {
+        "avatar": "some_path_to_garply"
+      }
+    },
+    {
+      "id": 5,
+      "name": "waldo",
+      "profile": {
+        "avatar": "some_path_to_waldo"
+      }
+    },
+    {
+      "id": 6,
+      "name": "fred",
+      "profile": {
+        "avatar": "some_path_to_fred"
+      }
+    }
+  ]
 }
 ```
