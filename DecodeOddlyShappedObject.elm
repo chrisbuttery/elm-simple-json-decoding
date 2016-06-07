@@ -63,13 +63,11 @@ main =
 
 -- MODEL
 
-type alias Profile =
-  { avatar: String }
 
 type alias User =
   { id: Int
   , name: String
-  , profile: String
+  , avatar: String
   }
 
 
@@ -125,7 +123,7 @@ update action model =
 renderMember members =
   ul [] (List.map (\member ->
     li [] [
-      text (toString(member.id) ++ ": " ++ member.name ++ " " ++ member.profile)
+      text (toString(member.id) ++ ": " ++ member.name ++ " " ++ member.avatar)
     ]
   ) members)
 
@@ -178,7 +176,7 @@ decodeMembersResponse =
 
 
 -- decodeMembers
--- pluck out the id, name, name and profile for each member
+-- pluck out the id, name, name and avatar for each member
 
 decodeMembers : Json.Decoder User
 decodeMembers =
