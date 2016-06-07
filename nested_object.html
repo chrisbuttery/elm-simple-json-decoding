@@ -7997,11 +7997,6 @@ var _user$project$Main$decodeNestedObject = A2(
 	_elm_lang$core$Native_List.fromArray(
 		['obj', 'title']),
 	_elm_lang$core$Json_Decode$string);
-var _user$project$Main$decodeTitle = A2(
-	_elm_lang$core$Json_Decode$at,
-	_elm_lang$core$Native_List.fromArray(
-		['title']),
-	_elm_lang$core$Json_Decode$string);
 var _user$project$Main$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
@@ -8072,6 +8067,22 @@ var _user$project$Main$view = function (model) {
 			[]),
 		_elm_lang$core$Native_List.fromArray(
 			[
+				A2(
+				_elm_lang$html$Html$h1,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Nested object')
+					])),
+				A2(
+				_elm_lang$html$Html$p,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Here I want to grab the nested \'title\' from \'obj\'')
+					])),
 				A2(
 				_elm_lang$html$Html$p,
 				_elm_lang$core$Native_List.fromArray(
