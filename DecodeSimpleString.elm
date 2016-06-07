@@ -6,7 +6,7 @@ import Http
 import Json.Decode as Json exposing ((:=))
 import Task
 
--- https://api.myjson.com/bins/1mny6
+-- https://api.myjson.com/bins/yws2
 
 -- {
 --   "title": "This is an amazing title",
@@ -26,7 +26,30 @@ import Task
 --   ],
 --   "obj": {
 --     "title": "I'm a nested object"
---   }
+--   },
+--   "members": [
+--     {
+--       "id": 4,
+--       "name": "garply",
+--       "profile": {
+--         "avatar": "some_path_to_garply"
+--       }
+--     },
+--     {
+--       "id": 5,
+--       "name": "waldo",
+--       "profile": {
+--         "avatar": "some_path_to_waldo"
+--       }
+--     },
+--     {
+--       "id": 6,
+--       "name": "fred",
+--       "profile": {
+--         "avatar": "some_path_to_fred"
+--       }
+--     }
+--   ]
 -- }
 
 main =
@@ -101,7 +124,9 @@ view model =
       else ""
   in
     div []
-      [ p [] [ text "Demo URL: https://api.myjson.com/bins/1mny6"]
+      [ h1 [] [ text "Simple string"]
+      , p [] [ text "Here I want to grab the 'title'"]
+      , p [] [ text "Demo URL: https://api.myjson.com/bins/1mny6"]
       , input [
           placeholder "Enter a URL",
           onInput StoreURL
@@ -127,6 +152,9 @@ makeRequest : String -> Cmd Msg
 makeRequest url =
   Task.perform FetchFail FetchSucceed (Http.get decodeTitle url)
 
+
+-- decodeTitle
+-- return the string from 'title'
 
 decodeTitle : Json.Decoder String
 decodeTitle =

@@ -7,7 +7,7 @@ import Json.Decode as Json exposing ((:=))
 import Task
 import String
 
--- https://api.myjson.com/bins/1mny6
+-- https://api.myjson.com/bins/yws2
 
 -- {
 --   "title": "This is an amazing title",
@@ -27,7 +27,30 @@ import String
 --   ],
 --   "obj": {
 --     "title": "I'm a nested object"
---   }
+--   },
+--   "members": [
+--     {
+--       "id": 4,
+--       "name": "garply",
+--       "profile": {
+--         "avatar": "some_path_to_garply"
+--       }
+--     },
+--     {
+--       "id": 5,
+--       "name": "waldo",
+--       "profile": {
+--         "avatar": "some_path_to_waldo"
+--       }
+--     },
+--     {
+--       "id": 6,
+--       "name": "fred",
+--       "profile": {
+--         "avatar": "some_path_to_fred"
+--       }
+--     }
+--   ]
 -- }
 
 main =
@@ -124,7 +147,9 @@ view model =
       else renderResults model
   in
     div []
-      [ p [] [ text "Demo URL: https://api.myjson.com/bins/1mny6"]
+      [ h1 [] [ text "Nested list"]
+      , p [] [ text "Here I want to each object nested inside of 'data'"]
+      , p [] [ text "Demo URL: https://api.myjson.com/bins/1mny6"]
       , input [
           placeholder "Enter a URL",
           onInput StoreURL
@@ -151,13 +176,19 @@ makeRequest url =
   Task.perform FetchFail FetchSucceed (Http.get decoder url)
 
 
+-- decoder
+-- decode the contents of 'data' with nestedListDecoder
+
+decoder: Json.Decoder (List Item)
+decoder =
+  Json.at ["data"] (Json.list nestedListDecoder)
+
+
+-- nestedListDecoder
+-- get the name and id from each object
+
 nestedListDecoder : Json.Decoder Item
 nestedListDecoder =
   Json.object2 Item
     ("name" := Json.string)
     ("id" := Json.int)
-
-
-decoder: Json.Decoder (List Item)
-decoder =
-  Json.at ["data"] (Json.list nestedListDecoder)
