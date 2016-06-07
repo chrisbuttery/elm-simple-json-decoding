@@ -8024,7 +8024,7 @@ var _user$project$Main$renderMember = function (members) {
 									A2(
 										_elm_lang$core$Basics_ops['++'],
 										member.name,
-										A2(_elm_lang$core$Basics_ops['++'], ' ', member.profile)))))
+										A2(_elm_lang$core$Basics_ops['++'], ' ', member.avatar)))))
 						]));
 			},
 			members));
@@ -8037,12 +8037,9 @@ var _user$project$Main$initialModel = {
 	message: ''
 };
 var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Main$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
-var _user$project$Main$Profile = function (a) {
-	return {avatar: a};
-};
 var _user$project$Main$User = F3(
 	function (a, b, c) {
-		return {id: a, name: b, profile: c};
+		return {id: a, name: b, avatar: c};
 	});
 var _user$project$Main$decodeMembers = A4(
 	_elm_lang$core$Json_Decode$object3,
