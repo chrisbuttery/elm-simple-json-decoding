@@ -136,7 +136,7 @@ view model =
       else ""
   in
     div []
-      [ h1 [] [ text "Oddly shapped object"]
+      [ h1 [] [ text "Oddly shaped object"]
       , p [] [ text "Here I want to grab every member's 'id', 'name' and path to their 'avatar' (nested in 'profile')"]
       , p [] [ text "Demo URL: https://api.myjson.com/bins/yws2"]
       , input [
