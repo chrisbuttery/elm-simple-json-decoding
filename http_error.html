@@ -8000,7 +8000,7 @@ var _user$project$Main$decodeTitle = A2(
 var _user$project$Main$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
-var _user$project$Main$initialModel = {url: '', result: '', error: ''};
+var _user$project$Main$initialModel = {url: '', result: '', error: _elm_lang$core$Maybe$Nothing};
 var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Main$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
 var _user$project$Main$Model = F3(
 	function (a, b, c) {
@@ -8053,7 +8053,9 @@ var _user$project$Main$update = F2(
 							ctor: '_Tuple2',
 							_0: _elm_lang$core$Native_Utils.update(
 								model,
-								{error: 'Timeout'}),
+								{
+									error: _elm_lang$core$Maybe$Just('Timeout')
+								}),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
 					case 'NetworkError':
@@ -8061,7 +8063,9 @@ var _user$project$Main$update = F2(
 							ctor: '_Tuple2',
 							_0: _elm_lang$core$Native_Utils.update(
 								model,
-								{error: 'Network Error'}),
+								{
+									error: _elm_lang$core$Maybe$Just('Network Error')
+								}),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
 					case 'UnexpectedPayload':
@@ -8069,7 +8073,9 @@ var _user$project$Main$update = F2(
 							ctor: '_Tuple2',
 							_0: _elm_lang$core$Native_Utils.update(
 								model,
-								{error: _p1._0}),
+								{
+									error: _elm_lang$core$Maybe$Just(_p1._0)
+								}),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
 					default:
@@ -8077,7 +8083,9 @@ var _user$project$Main$update = F2(
 							ctor: '_Tuple2',
 							_0: _elm_lang$core$Native_Utils.update(
 								model,
-								{error: _p1._1}),
+								{
+									error: _elm_lang$core$Maybe$Just(_p1._1)
+								}),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
 				}
@@ -8088,7 +8096,6 @@ var _user$project$Main$StoreURL = function (a) {
 	return {ctor: 'StoreURL', _0: a};
 };
 var _user$project$Main$view = function (model) {
-	var response = (!_elm_lang$core$Native_Utils.eq(model.error, '')) ? A2(_elm_lang$core$Basics_ops['++'], 'There was an error: ', model.error) : '';
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
@@ -8136,7 +8143,8 @@ var _user$project$Main$view = function (model) {
 					[]),
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html$text(response)
+						_elm_lang$html$Html$text(
+						A2(_elm_lang$core$Maybe$withDefault, '', model.error))
 					])),
 				A2(
 				_elm_lang$html$Html$div,
