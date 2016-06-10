@@ -88,23 +88,23 @@ init =
 
 
 type Msg
-  = FetchTitle
+  = StoreURL String
+  | FetchData
   | FetchSucceed String
-  | StoreURL String
   | FetchFail Http.Error
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update action model =
   case action of
-    FetchTitle ->
+    StoreURL url ->
+      ({ model | url = url }, Cmd.none)
+
+    FetchData ->
       (model, makeRequest model.url)
 
     FetchSucceed str ->
       ({ model | result = str, error = False }, Cmd.none)
-
-    StoreURL url ->
-      ({ model | url = url }, Cmd.none)
 
     FetchFail _ ->
       ({ model | error = True }, Cmd.none)
@@ -131,7 +131,7 @@ view model =
           placeholder "Enter a URL",
           onInput StoreURL
         ] []
-        , button [ onClick FetchTitle ] [ text "Fetch!" ]
+        , button [ onClick FetchData ] [ text "Fetch!" ]
         , p [] [ text response ]
         , div [] [ text (toString model) ]
       ]

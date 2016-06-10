@@ -78,6 +78,7 @@ type alias Model =
   , message : String
   }
 
+
 initialModel : Model
 initialModel = {
   url = ""
@@ -96,23 +97,23 @@ init =
 
 
 type Msg
-  = FetchData
+  = StoreURL String
+  | FetchData
   | FetchSucceed (List User)
-  | StoreURL String
   | FetchFail Http.Error
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update action model =
   case action of
+    StoreURL url ->
+      ({ model | url = url }, Cmd.none)
+
     FetchData ->
       (model, makeRequest model.url)
 
     FetchSucceed members ->
       ({ model | result = members, error = False }, Cmd.none)
-
-    StoreURL url ->
-      ({ model | url = url }, Cmd.none)
 
     FetchFail err ->
       ({ model | error = True, message = toString err }, Cmd.none)

@@ -98,23 +98,23 @@ init =
 
 
 type Msg
-  = FetchData
+  = StoreURL String
+  | FetchData
   | FetchSucceed (List Item)
-  | StoreURL String
   | FetchFail Http.Error
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update action model =
   case action of
+    StoreURL url ->
+      ({ model | url = url }, Cmd.none)
+
     FetchData ->
       (model, makeRequest model.url)
 
     FetchSucceed results ->
       ({ model | result = results, error = False }, Cmd.none)
-
-    StoreURL url ->
-      ({ model | url = url }, Cmd.none)
 
     FetchFail _ ->
       ({ model | error = True }, Cmd.none)
