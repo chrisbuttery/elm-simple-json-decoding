@@ -6,51 +6,6 @@ import Http
 import Json.Decode as Json exposing ((:=))
 import Task
 
--- https://api.myjson.com/bins/yws2
-
--- {
---   "title": "This is an amazing title",
---   "data": [
---     {
---       "id": 1,
---       "name": "foo"
---     },
---     {
---       "id": 2,
---       "name": "bar"
---     },
---     {
---       "id": 3,
---       "name": "baz"
---     }
---   ],
---   "obj": {
---     "title": "I'm a nested object"
---   },
---   "members": [
---     {
---       "id": 4,
---       "name": "garply",
---       "profile": {
---         "avatar": "some_path_to_garply"
---       }
---     },
---     {
---       "id": 5,
---       "name": "waldo",
---       "profile": {
---         "avatar": "some_path_to_waldo"
---       }
---     },
---     {
---       "id": 6,
---       "name": "fred",
---       "profile": {
---         "avatar": "some_path_to_fred"
---       }
---     }
---   ]
--- }
 
 main =
   Html.program
@@ -67,7 +22,7 @@ main =
 type alias Model =
   { url : String
   , result : String
-  , error : Bool
+  , error : String
   }
 
 
@@ -75,7 +30,7 @@ initialModel : Model
 initialModel = {
   url = ""
   , result = ""
-  , error = False
+  , error = ""
   }
 
 
@@ -89,7 +44,7 @@ init =
 
 type Msg
   = StoreURL String
-  | FetchData
+  | FetchTitle
   | FetchSucceed String
   | FetchFail Http.Error
 
@@ -100,14 +55,27 @@ update action model =
     StoreURL url ->
       ({ model | url = url }, Cmd.none)
 
-    FetchData ->
+    FetchTitle ->
       (model, makeRequest model.url)
 
     FetchSucceed str ->
-      ({ model | result = str, error = False }, Cmd.none)
+      ({ model | result = str }, Cmd.none)
 
-    FetchFail _ ->
-      ({ model | error = True }, Cmd.none)
+    -- handle Http.Error
+    -- http://package.elm-lang.org/packages/evancz/elm-http/3.0.1/Http#Error
+    FetchFail err ->
+      case err of
+        Http.Timeout ->
+          ({ model | error = "Timeout" }, Cmd.none)
+
+        Http.NetworkError ->
+          ({ model | error = "Network Error" }, Cmd.none)
+
+        Http.UnexpectedPayload error ->
+          ({ model | error = error }, Cmd.none)
+
+        Http.BadResponse code error ->
+          ({ model | error = error }, Cmd.none)
 
 
 -- VIEW
@@ -117,21 +85,18 @@ view : Model -> Html Msg
 view model =
   let
     response =
-      if model.error == True
-      then "There was an error"
-      else if model.result /= ""
-      then "I just found: " ++ model.result
+      if model.error /= ""
+      then "There was an error: " ++ model.error
       else ""
   in
     div []
-      [ h1 [] [ text "Simple string"]
-      , p [] [ text "Here I want to grab the 'title'"]
-      , p [] [ text "Demo URL: https://api.myjson.com/bins/1mny6"]
+      [ h1 [] [ text "Http Error"]
+      , p [] [ text "Enter any random string"]
       , input [
           placeholder "Enter a URL",
           onInput StoreURL
         ] []
-        , button [ onClick FetchData ] [ text "Fetch!" ]
+        , button [ onClick FetchTitle ] [ text "Fetch!" ]
         , p [] [ text response ]
         , div [] [ text (toString model) ]
       ]
