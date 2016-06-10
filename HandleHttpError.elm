@@ -22,7 +22,7 @@ main =
 type alias Model =
   { url : String
   , result : String
-  , error : String
+  , error : Maybe String
   }
 
 
@@ -30,7 +30,7 @@ initialModel : Model
 initialModel = {
   url = ""
   , result = ""
-  , error = ""
+  , error = Nothing
   }
 
 
@@ -66,16 +66,16 @@ update action model =
     FetchFail err ->
       case err of
         Http.Timeout ->
-          ({ model | error = "Timeout" }, Cmd.none)
+          ({ model | error = Just "Timeout" }, Cmd.none)
 
         Http.NetworkError ->
-          ({ model | error = "Network Error" }, Cmd.none)
+          ({ model | error = Just "Network Error" }, Cmd.none)
 
         Http.UnexpectedPayload error ->
-          ({ model | error = error }, Cmd.none)
+          ({ model | error = Just error }, Cmd.none)
 
         Http.BadResponse code error ->
-          ({ model | error = error }, Cmd.none)
+          ({ model | error = Just error }, Cmd.none)
 
 
 -- VIEW
@@ -83,23 +83,17 @@ update action model =
 
 view : Model -> Html Msg
 view model =
-  let
-    response =
-      if model.error /= ""
-      then "There was an error: " ++ model.error
-      else ""
-  in
-    div []
-      [ h1 [] [ text "Http Error"]
-      , p [] [ text "Enter any random string"]
-      , input [
-          placeholder "Enter a URL",
-          onInput StoreURL
-        ] []
-        , button [ onClick FetchTitle ] [ text "Fetch!" ]
-        , p [] [ text response ]
-        , div [] [ text (toString model) ]
-      ]
+  div []
+    [ h1 [] [ text "Http Error"]
+    , p [] [ text "Enter any random string"]
+    , input [
+        placeholder "Enter a URL",
+        onInput StoreURL
+      ] []
+      , button [ onClick FetchTitle ] [ text "Fetch!" ]
+      , p [] [ text (Maybe.withDefault "" model.error) ]
+      , div [] [ text (toString model) ]
+    ]
 
 
 -- SUBSCRIPTIONS
