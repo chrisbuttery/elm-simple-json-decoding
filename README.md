@@ -6,6 +6,7 @@ A playground of basic examples decoding a JSON object.
 * [Nested object](http://chrisbuttery.github.io/elm-simple-json-decoding/nested_object.html)
 * [Nested list](http://chrisbuttery.github.io/elm-simple-json-decoding/nested_list.html)
 * [Oddly shaped object](http://chrisbuttery.github.io/elm-simple-json-decoding/oddly_shaped_object.html)
+* [Handle Http Error](http://chrisbuttery.github.io/elm-simple-json-decoding/http_error.html)
 
 ### Example data structure
 
